@@ -41,6 +41,9 @@ public interface ButtonAppearance extends ButtonBaseAppearance {
     @ClassName("mgwt-Button-confirm")
     String confirm();
 
+    @ClassName("mgwt-Button-error")
+    String error();
+
     @ClassName("mgwt-Button-disabled")
     String disabled();
   }

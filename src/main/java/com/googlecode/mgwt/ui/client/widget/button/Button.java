@@ -32,6 +32,7 @@ public class Button extends ButtonBase {
   private boolean round;
   private boolean small;
   private boolean confirm;
+  private boolean error;
 
   private final ButtonAppearance appearance;
 
@@ -120,6 +121,20 @@ public class Button extends ButtonBase {
       removeStyleName(appearance.css().important());
     }
     this.important = important;
+  }
+  
+  /**
+   * Should the button be rendered as error
+   *
+   * @param important true if the button should be rendered as important, otherwise false
+   */
+  public void setError(boolean error) {
+    if (error) {
+      addStyleName(appearance.css().error());
+    } else {
+      removeStyleName(appearance.css().error());
+    }
+    this.error = error;
   }
 
   /**

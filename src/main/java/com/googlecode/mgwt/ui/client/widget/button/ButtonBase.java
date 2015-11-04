@@ -17,6 +17,8 @@ import com.google.gwt.event.dom.client.TouchCancelEvent;
 import com.google.gwt.event.dom.client.TouchEndEvent;
 import com.google.gwt.event.dom.client.TouchMoveEvent;
 import com.google.gwt.event.dom.client.TouchStartEvent;
+import com.google.gwt.safehtml.client.HasSafeHtml;
+import com.google.gwt.safehtml.shared.SafeHtml;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasText;
@@ -29,7 +31,7 @@ import com.googlecode.mgwt.ui.client.widget.touch.TouchWidget;
 /**
  * Base class for all buttons
  */
-public abstract class ButtonBase extends TouchWidget implements HasText {
+public abstract class ButtonBase extends TouchWidget implements HasText,HasSafeHtml {
 
   private boolean active;
   // a temp fix where we no longer add the default touch handlers to the button
@@ -57,6 +59,9 @@ public abstract class ButtonBase extends TouchWidget implements HasText {
   @Override
   public void setText(String text) {
     getElement().setInnerText(text);
+  }
+  public void setHTML(SafeHtml html){
+	  getElement().setInnerSafeHtml(html);
   }
 
   public boolean isActive() {
