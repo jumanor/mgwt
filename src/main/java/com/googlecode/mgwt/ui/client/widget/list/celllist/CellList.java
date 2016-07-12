@@ -78,8 +78,14 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
         moved = true;
         // deselect
         if (node != null) {
-          node.removeClassName(CellList.this.appearance.css().selected());
-          stopTimer();
+        	
+        	 if(node.getAttribute("colorCelda")!=null){
+           	  
+           	  node.getStyle().setBackgroundColor(node.getAttribute("colorCelda"));
+             }	
+        	 
+        	 node.removeClassName(CellList.this.appearance.css().selected());
+        	 stopTimer();
         }
 
       }
@@ -89,8 +95,14 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
     @Override
     public void onTouchEnd(TouchEndEvent event) {
       if (node != null) {
-        node.removeClassName(CellList.this.appearance.css().selected());
-        stopTimer();
+    	  
+    	  if(node.getAttribute("colorCelda")!=null){
+        	  
+        	  node.getStyle().setBackgroundColor(node.getAttribute("colorCelda"));
+          }	
+ 
+    	  node.removeClassName(CellList.this.appearance.css().selected());
+    	  stopTimer();
       }
       if (started && !moved && index != -1) {
         fireSelectionAtIndex(index, originalElement);
@@ -108,7 +120,12 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
       y = event.getTouches().get(0).getPageY();
 
       if (node != null) {
-        node.removeClassName(CellList.this.appearance.css().selected());
+    	  if(node.getAttribute("colorCelda")!=null){
+        	  
+        	  node.getStyle().setBackgroundColor(node.getAttribute("colorCelda"));
+          }	
+ 
+          node.removeClassName(CellList.this.appearance.css().selected());
       }
       moved = false;
       index = -1;
@@ -268,7 +285,20 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
       li.removeClassName(this.appearance.css().selected());
     }
   }
-
+  /**
+   * Set a background-color element in the celllist
+   * 
+   * @param index
+   * @param color
+   */
+  public void setColorCelda(int index, String color) {
+	
+	  Node node = getElement().getChild(index);
+	  Element li = Element.as(node);
+	  li.getStyle().setBackgroundColor(color);
+	  li.setAttribute("colorCelda", color);//backup
+	  
+  }
   protected void fixBug(final String html) {
     new Timer() {
 
@@ -304,6 +334,7 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
 
       @Override
       public void run() {
+    	node.setAttribute("style", "");//con precaucion en caso usemos "setColorCelda"  
         node.addClassName(CellList.this.appearance.css().selected());
       }
     };
