@@ -334,7 +334,8 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
 
       @Override
       public void run() {
-    	node.setAttribute("style", "");//con precaucion en caso usemos "setColorCelda"  
+    	node.getStyle().setBackgroundColor("");
+    	//node.setAttribute("style", "");//con precaucion en caso usemos "setColorCelda"  
         node.addClassName(CellList.this.appearance.css().selected());
       }
     };
