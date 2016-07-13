@@ -171,7 +171,7 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
         try {
           index = Integer.parseInt(idxString);
           node = target;
-          startTimer(node);
+          startTimer(node,index);
         } catch (Exception e) {
         }
       }
@@ -186,6 +186,8 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
   protected final Cell<T> cell;
 
   protected Timer timer;
+  
+  private List<T> models;
 
   @UiField
   public Element container;
@@ -230,7 +232,7 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
    * @param models the list of models to render
    */
   public void render(List<T> models) {
-
+	this.models=models;  
     SafeHtmlBuilder sb = new SafeHtmlBuilder();
 
     for (int i = 0; i < models.size(); i++) {
@@ -324,7 +326,7 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
 	  return appearance;
   }
 
-  protected void startTimer(final Element node) {
+  protected void startTimer(final Element node,final int index) {
     if (timer != null) {
       timer.cancel();
       timer = null;
@@ -334,7 +336,11 @@ public class CellList<T> extends Widget implements HasCellSelectedHandler {
 
       @Override
       public void run() {
-    	node.getStyle().setBackgroundColor("");
+    	 T model = models.get(index);
+    	 if (cell.canBeSelected(model)) {
+    		    node.getStyle().setBackgroundColor("");
+    	 }
+ 
     	//node.setAttribute("style", "");//con precaucion en caso usemos "setColorCelda"  
         node.addClassName(CellList.this.appearance.css().selected());
       }
